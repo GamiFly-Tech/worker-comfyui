@@ -155,7 +155,7 @@ COPY --from=downloader /comfyui/models /comfyui/models
 COPY see-through-snapshot.json /comfyui/see-through-snapshot.json
 
 # Restore snapshot (自動安裝 ComfyUI-See-through + 所有 custom nodes + 模型)
-RUN comfy --workspace=/comfyui node restore-snapshot /comfyui/see-through-snapshot.json --force
+RUN comfy --workspace=/comfyui node restore-snapshot /comfyui/see-through-snapshot.json
 
 # See-through 需要的額外套件
 RUN pip install --no-cache-dir diffusers opencv-python-headless pillow
