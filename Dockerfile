@@ -167,5 +167,8 @@ ENV COMFYUI_PATH=/comfyui
 # See-through + Handler fix
 # ======================
 
-# 告訴 RunPod 使用現有的 queue handler
-ENV RUNPOD_HANDLER_PATH=/handler.py
+# 複製我們剛新增的 handler
+COPY rp_handler.py /comfyui/rp_handler.py
+
+# 告訴 RunPod 使用我們提供的 handler
+ENV RUNPOD_HANDLER_PATH=/comfyui/rp_handler.py
