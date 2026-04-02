@@ -146,3 +146,19 @@ FROM base AS final
 
 # Copy models from stage 2 to the final image
 COPY --from=downloader /comfyui/models /comfyui/models
+
+# ======================
+# Custom See-through setup
+# ======================
+
+# Copy your snapshot
+COPY see-through-snapshot.json /comfyui/see-through-snapshot.json
+
+# Restore snapshot (自動安裝 ComfyUI-See-through + 所有 custom nodes + 模型)
+RUN comfy restore-snapshot /comfyui/see-through-snapshot.json --force
+
+# See-through 需要的額外套件
+RUN pip install --no-cache-dir diffusers opencv-python-headless pillow
+
+# 確保 ComfyUI 能正確讀取 Network Volume
+ENV COMFYUI_PATH=/comfyui
