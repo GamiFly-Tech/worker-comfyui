@@ -162,20 +162,3 @@ RUN pip install --no-cache-dir diffusers opencv-python-headless pillow
 
 # 確保 ComfyUI 能正確讀取 Network Volume
 ENV COMFYUI_PATH=/comfyui
-
-# ======================
-# See-through + Handler fix
-# ======================
-
-# 複製我們剛新增的 handler
-COPY rp_handler.py /comfyui/rp_handler.py
-
-# 還原你的 snapshot（自動安裝 See-through）
-COPY see-through-snapshot.json /comfyui/see-through-snapshot.json
-RUN comfy restore-snapshot /comfyui/see-through-snapshot.json --force
-
-# See-through 額外套件
-RUN pip install --no-cache-dir diffusers opencv-python-headless pillow
-
-# 告訴 RunPod 使用我們提供的 handler
-ENV RUNPOD_HANDLER_PATH=/comfyui/rp_handler.py
